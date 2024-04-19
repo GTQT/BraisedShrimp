@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+repositories {
+    maven {
+        name = "curse"
+        url = "https://cursemaven.com"
+    }
+
+    maven {
+        name = "jei"
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+
+    maven {
+        name = "jitpack"
+        url = "https://jitpack.io"
+    }
+
+    mavenCentral()
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
+
+group = "org.gtqt"
+archivesBaseName = "BraisedShrimp"
+
+sourceCompatibility = targetCompatibility = 1.8
+compileJava {
+    sourceCompatibility = targetCompatibility = 1.8
+}
+
+dependencies {
+    compile "mezz.jei:jei_1.12.2:4.8.0.+"
+
+}
+
+version = 1.0
+
+minecraft {
+    version = "1.12.2-14.23.5.2847"
+    mappings = "stable_39"
+    runDir = "run"
+    makeObfSourceJar = true
+}
+
+processResources {
+    inputs.property "version", "1.0"
+    inputs.property "mc_version", "1.12.2"
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': "1.0", 'mcversion': "1.12.2"
+    }
+
+    from (sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
